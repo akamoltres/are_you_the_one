@@ -1,0 +1,130 @@
+
+weeks = 6
+
+men = [
+    "alec",
+    "austin",
+    "chuck",
+    "connor",
+    "devin",
+    "hunter",
+    "mike",
+    "nelson",
+    "tyler",
+    "zak"
+]
+
+women = [
+    "amanda",
+    "britni",
+    "chelsey",
+    "cheyenne",
+    "hannah",
+    "kayla",
+    "kiki",
+    "melanie",
+    "rashida",
+    "stacey"
+]
+
+[week1]
+pairs = [
+    ["alec", "stacey"],
+    ["austin", "kiki"],
+    ["chuck", "hannah"],
+    ["connor", "chelsey"],
+    ["devin", "melanie"],
+    ["hunter", "britni"],
+    ["mike", "amanda"],
+    ["nelson", "cheyenne"],
+    ["tyler", "rashida"],
+    ["zak", "kayla"]
+]
+correct = 2
+booth = ["hunter", "kiki"]
+booth_status = "no"
+
+[week2]
+pairs = [
+    ["alec", "chelsey"],
+    ["austin", "kiki"],
+    ["chuck", "hannah"],
+    ["connor", "kayla"],
+    ["devin", "melanie"],
+    ["hunter", "stacey"],
+    ["mike", "amanda"],
+    ["nelson", "cheyenne"],
+    ["tyler", "rashida"],
+    ["zak", "britni"]
+]
+correct = 0
+booth = ["devin", "kiki"]
+booth_status = "no"
+
+[week3]
+pairs = [
+    ["alec", "stacey"],
+    ["austin", "amanda"],
+    ["chuck", "kiki"],
+    ["connor", "chelsey"],
+    ["devin", "rashida"],
+    ["hunter", "britni"],
+    ["mike", "kayla"],
+    ["nelson", "melanie"],
+    ["tyler", "cheyenne"],
+    ["zak", "hannah"]
+]
+correct = 3
+booth = ["zak", "kiki"]
+booth_status = "no"
+
+[week4]
+pairs = [
+    ["alec", "amanda"],
+    ["austin", "stacey"],
+    ["chuck", "kiki"],
+    ["connor", "chelsey"],
+    ["devin", "hannah"],
+    ["hunter", "rashida"],
+    ["mike", "kayla"],
+    ["nelson", "britni"],
+    ["tyler", "melanie"],
+    ["zak", "cheyenne"]
+]
+correct = 2
+booth = ["chuck", "britni"]
+booth_status = "no"
+
+[week5]
+pairs = [
+    ["alec", "stacey"],
+    ["austin", "hannah"],
+    ["chuck", "kiki"],
+    ["connor", "chelsey"],
+    ["devin", "cheyenne"],
+    ["hunter", "melanie"],
+    ["mike", "britni"],
+    ["nelson", "rashida"],
+    ["tyler", "amanda"],
+    ["zak", "kayla"]
+]
+correct = 2
+booth = ["connor", "chelsey"]
+booth_status = "yes"
+
+[week6]
+pairs = [
+    ["alec", "stacey"],
+    ["austin", "cheyenne"],
+    ["chuck", "amanda"],
+    ["connor", "chelsey"],
+    ["devin", "rashida"],
+    ["hunter", "britni"],
+    ["mike", "melanie"],
+    ["nelson", "kiki"],
+    ["tyler", "hannah"],
+    ["zak", "kayla"]
+]
+correct = 3
+booth = ["chuck", "kiki"]
+booth_status = "no"
