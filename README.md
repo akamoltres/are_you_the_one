@@ -28,5 +28,4 @@ positional arguments:
 optional arguments:
   -h, --help   show this help message and exit
   --xlsx XLSX  write output to excel 2010 file
-  --csv CSV    write output to csv file
 ```
