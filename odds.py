@@ -1,5 +1,6 @@
 
-from copy import deepcopy
+from are_you_the_one_output import generate_probability_table
+import argparse
 import os
 import sys
 from tabulate import tabulate
@@ -138,35 +139,14 @@ def main(season, week, phase):
     # try every matchup configuration
     total_valid = count(0, week, phase, constraints, women_assigned, pair_count)
 
-    # build the output probabilities table
-    output_table = []
-    output_table.append([i for i in constraints["women"]])
-    output_table[0].insert(0, "")
-    for idx, i in enumerate(pair_count):
-        output_table.append([constraints["men"][idx]])
-        for j in i:
-            if j == 0:
-                output_table[idx + 1].append("X")
-            elif j == total_valid:
-                output_table[idx + 1].append("MATCH")
-            else:
-                output_table[idx + 1].append("{:.2f}%".format(float(j) / float(total_valid) * 100.0))
-
-    # transpose to match areuthe.blogspot.com
-    transposed = deepcopy(output_table)
-    for i in range(len(output_table)):
-        for j in range(len(output_table[i])):
-            transposed[j][i] = output_table[i][j]
-
+    # Outputs
     print("Remaining configurations: {}".format(total_valid))
-    print(tabulate(transposed))
+    print(tabulate(generate_probability_table(total_valid, constraints, pair_count)))
 
 if __name__ == "__main__":
-    if sys.argv[1] == "-h" or sys.argv[1] == "--help" or sys.argv[1] == "help":
-        print("first argument is season")
-        print("second argument is week")
-        print("third argument is phase (a for after truth booth, b for after matchups)")
-
-    else:
-        assert len(sys.argv) == 4
-        main(int(sys.argv[1]), int(sys.argv[2]), sys.argv[3])
+    parser = argparse.ArgumentParser()
+    parser.add_argument("season", help = "season to analyze", type = int)
+    parser.add_argument("week", help = "week to analyze", type = int)
+    parser.add_argument("phase", help = "a for after the truth booth, b for after the matchup ceremony", choices = ("a", "b"))
+    args = parser.parse_args()
+    main(args.season, args.week, args.phase)
