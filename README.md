@@ -1,13 +1,32 @@
 # Are You The One probabilities generation
 
-Developed using Python 3.4.3
+## Dependencies
 
-Dependencies: tabulate, toml
+### Python Version
 
-Run using the following command:
+Developed and tested on Python 3.4.3 and Python 3.8.5
+
+### Libraries
+
+* openpyxl
+* tabulate
+* toml
+
+## Usage
+
+Script must be run from repository root since paths to season/week constraints are hardcoded
 
 ```
-$ python3 odds.py SEASON WEEK PHASE
-```
+$ ./are_you_the_one_odds.py -h
+usage: are_you_the_one_odds.py [-h] [--xlsx XLSX] [--csv CSV] season week {a,b}
 
-where PHASE a is after that week's truth booth, and PHASE b is after that week's matchup ceremony. 
+positional arguments:
+  season       season to analyze
+  week         week to analyze
+  {a,b}        a for after the truth booth, b for after the matchup ceremony
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --xlsx XLSX  write output to excel 2010 file
+  --csv CSV    write output to csv file
+```
