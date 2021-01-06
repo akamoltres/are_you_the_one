@@ -1,6 +1,6 @@
 #!/bin/python3
 
-from are_you_the_one_output import generate_probability_table
+from are_you_the_one_output import generate_probability_table, write_to_xlsx
 import argparse
 import os
 import sys
@@ -29,7 +29,7 @@ def check_booth(men, women, booth, booth_status, women_assigned):
     assert False
 
 def check_week(week, constraints, women_assigned):
-    week = "week{}".format(week)
+    week = f"week{week}"
     return (check_matchup(
                 constraints["men"],
                 constraints["women"],
@@ -53,8 +53,8 @@ def is_possibility(week, phase, constraints, women_assigned, pair_count):
         return check_booth(
                    constraints["men"],
                    constraints["women"],
-                   constraints["week{}".format(week)]["booth"],
-                   constraints["week{}".format(week)]["booth_status"],
+                   constraints[f"week{week}"]["booth"],
+                   constraints[f"week{week}"]["booth_status"],
                    women_assigned)
 
 def count(depth, week, phase, constraints, women_assigned, pair_count):
@@ -104,7 +104,7 @@ def pairs_to_Pairs(constraints):
     women_list = constraints["women"]
     for w in range(1, int(constraints["weeks"]) + 1):
         # setup
-        week = "week{}".format(w)
+        week = f"week{w}"
 
         # convert the truth booth pairs
         constraints[week]["booth"] = pair_to_Pair(constraints[week]["booth"], men_list, women_list)
@@ -114,7 +114,7 @@ def pairs_to_Pairs(constraints):
             constraints[week]["pairs"][idx] = pair_to_Pair(pair, men_list, women_list)
 
 def main(args):
-    constraint_file = os.path.join("constraints", "s{}.toml".format(args.season))
+    constraint_file = os.path.join("constraints", f"s{args.season}.toml")
 
     # validate season
     assert os.path.isfile(constraint_file)
@@ -141,17 +141,20 @@ def main(args):
     probability_table = generate_probability_table(total_valid, constraints, pair_count)
 
     # console output
-    print("Remaining configurations: {}".format(total_valid))
+    print(f"Remaining configurations: {total_valid}")
     print(tabulate(probability_table))
+
+    # reload constraints
+    constraints = None
+    with open(constraint_file, "r") as fin:
+        constraints = toml.load(fin)
 
     # file output
     if args.xlsx is not None:
         filename = args.xlsx[0] + ".xlsx"
-        print(filename)
-
-    if args.csv is not None:
-        filename = args.csv[0] + ".csv"
-        print(filename)
+        print(f"Writing to {filename}...", end = "")
+        write_to_xlsx(filename, probability_table, constraints, args.week, args.phase)
+        print("complete!")
 
 if __name__ == "__main__":
     # handle arguments
@@ -160,7 +163,6 @@ if __name__ == "__main__":
     parser.add_argument("week", help = "week to analyze", type = int)
     parser.add_argument("phase", help = "a for after the truth booth, b for after the matchup ceremony", choices = ("a", "b"))
     parser.add_argument("--xlsx", help = "write output to excel 2010 file", nargs = 1)
-    parser.add_argument("--csv", help = "write output to csv file", nargs = 1)
     args = parser.parse_args()
 
     # enter program
