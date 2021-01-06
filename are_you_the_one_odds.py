@@ -1,3 +1,4 @@
+#!/bin/python3
 
 from are_you_the_one_output import generate_probability_table
 import argparse
@@ -61,7 +62,7 @@ def count(depth, week, phase, constraints, women_assigned, pair_count):
         valid = is_possibility(week, phase, constraints, women_assigned, pair_count)
         if valid:
             for idx, i in enumerate(women_assigned):
-                pair_count[i][idx] += 1
+                pair_count[idx][i] += 1
         return valid
 
     total_valid = 0
@@ -112,10 +113,10 @@ def pairs_to_Pairs(constraints):
         for idx, pair in enumerate(constraints[week]["pairs"]):
             constraints[week]["pairs"][idx] = pair_to_Pair(pair, men_list, women_list)
 
-def main(season, week, phase):
-    constraint_file = os.path.join("constraints", "s{}.toml".format(season))
+def main(args):
+    constraint_file = os.path.join("constraints", "s{}.toml".format(args.season))
 
-    # verify that the season's input file exists
+    # validate season
     assert os.path.isfile(constraint_file)
 
     # load constraints
@@ -123,9 +124,8 @@ def main(season, week, phase):
     with open(constraint_file, "r") as fin:
         constraints = toml.load(fin)
 
-    # validate inputs
-    assert (1 <= week <= int(constraints["weeks"]))
-    assert (phase == "a" or phase == "b")
+    # validate week
+    assert (1 <= args.week <= int(constraints["weeks"]))
 
     # rebuild constraint data
     num_men = len(constraints["men"])
@@ -134,19 +134,34 @@ def main(season, week, phase):
 
     # initialization
     women_assigned = [-1] * num_women
-    pair_count = [[0 for i in range(num_men)] for j in range(num_women)]
+    pair_count = [[0 for i in range(num_women)] for j in range(num_men)]
 
-    # try every matchup configuration
-    total_valid = count(0, week, phase, constraints, women_assigned, pair_count)
+    # try every matchup configuration and generate probabilities
+    total_valid = count(0, args.week, args.phase, constraints, women_assigned, pair_count)
+    probability_table = generate_probability_table(total_valid, constraints, pair_count)
 
-    # Outputs
+    # console output
     print("Remaining configurations: {}".format(total_valid))
-    print(tabulate(generate_probability_table(total_valid, constraints, pair_count)))
+    print(tabulate(probability_table))
+
+    # file output
+    if args.xlsx is not None:
+        filename = args.xlsx[0] + ".xlsx"
+        print(filename)
+
+    if args.csv is not None:
+        filename = args.csv[0] + ".csv"
+        print(filename)
 
 if __name__ == "__main__":
+    # handle arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("season", help = "season to analyze", type = int)
     parser.add_argument("week", help = "week to analyze", type = int)
     parser.add_argument("phase", help = "a for after the truth booth, b for after the matchup ceremony", choices = ("a", "b"))
+    parser.add_argument("--xlsx", help = "write output to excel 2010 file", nargs = 1)
+    parser.add_argument("--csv", help = "write output to csv file", nargs = 1)
     args = parser.parse_args()
-    main(args.season, args.week, args.phase)
+
+    # enter program
+    main(args)
