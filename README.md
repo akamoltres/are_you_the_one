@@ -4,7 +4,7 @@
 
 ### Python Version
 
-Developed and tested on Python 3.4.3 and Python 3.8.5
+Developed and tested on Python 3.8.5
 
 ### Libraries
 
