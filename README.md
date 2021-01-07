@@ -18,7 +18,7 @@ Script must be run from repository root since paths to season/week constraints a
 
 ```
 $ ./are_you_the_one_odds.py -h
-usage: are_you_the_one_odds.py [-h] [--xlsx XLSX] [--csv CSV] season week {a,b}
+usage: are_you_the_one_odds.py [-h] [--xlsx XLSX] season week {a,b}
 
 positional arguments:
   season       season to analyze
