@@ -152,9 +152,7 @@ def main(args):
     # file output
     if args.xlsx is not None:
         filename = args.xlsx[0] + ".xlsx"
-        print(f"Writing to {filename}...", end = "")
-        write_to_xlsx(filename, probability_table, constraints, args.week, args.phase)
-        print("complete!")
+        write_to_xlsx(filename, total_valid, probability_table, constraints, args.week, args.phase)
 
 if __name__ == "__main__":
     # handle arguments

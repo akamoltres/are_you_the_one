@@ -1,6 +1,8 @@
 
 from copy import deepcopy
 import openpyxl
+import pathlib
+import re
 
 def generate_probability_table(total_valid, constraints, pair_count):
     probability_table = []
@@ -26,11 +28,25 @@ def get_blank_matchups(probability_table):
                 matchups[i][j] = ""
     return matchups
 
-def write_matchup_table(ws, start_cell, week, phase, table):
+def write_matchup_table(ws, start_cell, week, phase, table, correct = None):
     for idx_r, i in enumerate(table):
         for idx_c, j, in enumerate(i):
-            ws.cell(row = idx_r + start_cell[0], column = idx_c + start_cell[1]).value = j
-    ws.cell(row = start_cell[0], column = start_cell[1]).value = f"{week}/{phase}"
+            cell = ws.cell(row = idx_r + start_cell[0], column = idx_c + start_cell[1])
+            cell.value = j
+            if j == "X":
+                cell.font = openpyxl.styles.Font(color = "970006")
+                cell.fill = openpyxl.styles.PatternFill(fill_type = "solid", fgColor = "FFC7CE")
+            elif j == "?" or re.match(r"^[0-9]+(,[0-9]+)*$", j):
+                cell.font = openpyxl.styles.Font(color = "9C6500")
+                cell.fill = openpyxl.styles.PatternFill(fill_type = "solid", fgColor = "FFEB9C")
+            elif j == "MATCH":
+                cell.font = openpyxl.styles.Font(color = "006100")
+                cell.fill = openpyxl.styles.PatternFill(fill_type = "solid", fgColor = "C6EFCE")
+                
+    cell = ws.cell(row = start_cell[0], column = start_cell[1])
+    cell.value = f"{week}/{phase}"
+    if correct is not None:
+        cell.value += f" - {correct}"
 
 def write_week_to_xlsx(ws, start_cell, constraints, week, phase, probability_table, matchup_rollup):
     matchup_table = get_blank_matchups(probability_table)
@@ -69,32 +85,47 @@ def write_week_to_xlsx(ws, start_cell, constraints, week, phase, probability_tab
             assert done
 
     # write this week's matchup to the excel sheet
-    write_matchup_table(ws, start_cell, week, phase, matchup_table)
+    write_matchup_table(ws, start_cell, week, phase, matchup_table, None if phase == "a" else str(constraints[f"week{week}"]["correct"]) + " correct")
 
     # update matchup rollup
     for idx_r, i in enumerate(matchup_table):
         for idx_c, j in enumerate(i):
             if idx_r != 0 and idx_c != 0 and matchup_table[idx_r][idx_c] != "":
-                if matchup_rollup[idx_r][idx_c] == "":
+                if matchup_table[idx_r][idx_c] == "X" or matchup_table[idx_r][idx_c] == "MATCH":
+                    matchup_rollup[idx_r][idx_c] = matchup_table[idx_r][idx_c]
+                elif matchup_rollup[idx_r][idx_c] == "":
                     matchup_rollup[idx_r][idx_c] += f"{week}"
-                else:
+                elif matchup_rollup[idx_r][idx_c] != "X" and matchup_rollup[idx_r][idx_c] != "MATCH":
                     matchup_rollup[idx_r][idx_c] += f",{week}"
 
-def write_to_xlsx(filename, probability_table, constraints, week, phase):
+def write_to_xlsx(filename, total_valid, probability_table, constraints, week, phase):
+    # check if the file exists, if it does, ask if it should be overwritten, and if yes, wipe it before continuing
+    if pathlib.Path(filename).exists():
+        while True:
+            print(f"{filename} already exists! Overwrite? [y/N] ", end = "")
+            user_input = input()
+            if user_input == "" or user_input.lower() == "n" or user_input.lower() == "no":
+                return
+            elif user_input.lower() == "y" or user_input.lower() == "yes":
+                break
+
+    print(f"Writing to {filename}...", end = "")
+
     # setup
     wb = openpyxl.Workbook()
     ws = wb.active
 
-    # write probability table
-    write_matchup_table(ws, (1, 1), week, phase, probability_table)
+    # write case count and probability tables
+    write_matchup_table(ws, (1, 1), week, phase, probability_table, f"{total_valid} remaining")
 
     # initialize matchup rollup
     matchup_rollup = get_blank_matchups(probability_table)
 
     # write the week-by-week matchups
+    row_length = 3
     for w in range(1, week + 1):
         write_week_to_xlsx(ws,
-                           (len(probability_table) + 2, (len(probability_table) + 1) * (w - 1) + 1),
+                           ((len(probability_table) + 1) * ((w - 1) // row_length + 1) + 1, (len(probability_table[0]) + 1) * ((w - 1) % row_length) + 1),
                            constraints,
                            w,
                            "b" if w != week else phase,
@@ -104,6 +135,6 @@ def write_to_xlsx(filename, probability_table, constraints, week, phase):
     # write the matchup rollup
     write_matchup_table(ws, (1, len(probability_table) + 2), week, phase, matchup_rollup)
 
-    # TODO conditional formatting (colors)
-
     wb.save(filename = filename)
+
+    print("complete!")
