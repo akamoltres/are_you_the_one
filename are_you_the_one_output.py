@@ -91,12 +91,7 @@ def write_week_to_xlsx(ws, start_cell, constraints, week, phase, probability_tab
     for idx_r, i in enumerate(matchup_table):
         for idx_c, j in enumerate(i):
             if idx_r != 0 and idx_c != 0 and matchup_table[idx_r][idx_c] != "":
-                if matchup_table[idx_r][idx_c] == "X" or matchup_table[idx_r][idx_c] == "MATCH":
-                    matchup_rollup[idx_r][idx_c] = matchup_table[idx_r][idx_c]
-                elif matchup_rollup[idx_r][idx_c] == "":
-                    matchup_rollup[idx_r][idx_c] += f"{week}"
-                elif matchup_rollup[idx_r][idx_c] != "X" and matchup_rollup[idx_r][idx_c] != "MATCH":
-                    matchup_rollup[idx_r][idx_c] += f",{week}"
+                matchup_rollup[idx_r][idx_c] += (str(week) if matchup_rollup[idx_r][idx_c] == "" else f",{week}")
 
 def write_to_xlsx(filename, total_valid, probability_table, constraints, week, phase):
     # check if the file exists, if it does, ask if it should be overwritten, and if yes, wipe it before continuing
@@ -131,6 +126,12 @@ def write_to_xlsx(filename, total_valid, probability_table, constraints, week, p
                            "b" if w != week else phase,
                            probability_table,
                            matchup_rollup)
+
+    # write Xs and MATCHes to the matchup rollup
+    for idx_r, i in enumerate(matchup_rollup):
+        for idx_c, j in enumerate(i):
+            if idx_r != 0 and idx_c != 0 and (probability_table[idx_r][idx_c] == "X" or probability_table[idx_r][idx_c] == "MATCH"):
+                matchup_rollup[idx_r][idx_c] = probability_table[idx_r][idx_c]
 
     # write the matchup rollup
     write_matchup_table(ws, (1, len(probability_table) + 2), week, phase, matchup_rollup)
