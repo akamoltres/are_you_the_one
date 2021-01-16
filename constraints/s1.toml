@@ -1,0 +1,45 @@
+
+weeks = 1
+
+men = [
+    "adam",
+    "chris",
+    "dillan",
+    "dre",
+    "ethan",
+    "jj",
+    "joey",
+    "ryan",
+    "scali",
+    "wes"
+]
+
+women = [
+    "amber",
+    "ashleigh",
+    "brittany",
+    "coleysia",
+    "jacy",
+    "jessica",
+    "kayla",
+    "paige",
+    "shanley",
+    "simone"
+]
+
+[week1]
+pairs = [
+    ["wes", "kayla"],
+    ["ethan", "shanley"],
+    ["adam", "brittany"],
+    ["dre", "jacy"],
+    ["jj", "simone"],
+    ["chris", "jessica"],
+    ["joey", "paige"],
+    ["chris", "ashleigh"],
+    ["ryan", "amber"],
+    ["dillan", "coleysia"]
+]
+correct = 2
+booth = ["chris", "shanley"]
+booth_status = "no"
