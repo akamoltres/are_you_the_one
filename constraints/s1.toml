@@ -1,5 +1,5 @@
 
-weeks = 2
+weeks = 4
 
 men = [
     "adam",
@@ -59,4 +59,38 @@ pairs = [
 ]
 correct = 4
 booth = ["ethan", "jessica"]
+booth_status = "no"
+
+[week3]
+pairs = [
+    ["dillan", "coleysia"],
+    ["jj", "jessica"],
+    ["ryan", "kayla"],
+    ["ethan", "amber"],
+    ["dre", "ashleigh"],
+    ["chris", "simone"],
+    ["adam", "brittany"],
+    ["scali", "paige"],
+    ["joey", "shanley"],
+    ["wes", "jacy"]
+]
+correct = 2
+booth = ["jj", "simone"]
+booth_status = "no"
+
+[week4]
+pairs = [
+    ["coleysia", "dillan"],
+    ["paige", "scali"],
+    ["jessica", "wes"],
+    ["simone", "dre"],
+    ["brittany", "ryan"],
+    ["kayla", "ethan"],
+    ["amber", "adam"],
+    ["ashleigh", "chris"],
+    ["shanley", "jj"],
+    ["jacy", "joey"]
+]
+correct = 2
+booth = ["dillan", "jessica"]
 booth_status = "no"
