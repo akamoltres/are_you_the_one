@@ -1,5 +1,5 @@
 
-weeks = 4
+weeks = 9
 
 men = [
     "adam",
@@ -93,4 +93,89 @@ pairs = [
 ]
 correct = 2
 booth = ["dillan", "jessica"]
+booth_status = "no"
+
+[week5]
+pairs = [
+    ["ethan", "amber"],
+    ["joey", "jessica"],
+    ["wes", "kayla"],
+    ["jj", "jacy"],
+    ["scali", "simone"],
+    ["adam", "shanley"],
+    ["chris", "paige"],
+    ["dre", "brittany"],
+    ["ryan", "ashleigh"],
+    ["dillan", "coleysia"]
+]
+correct = 5
+booth = [["dre", "ashleigh"], ["dillan", "coleysia"]]
+booth_status = ["no", "yes"]
+
+[week6]
+pairs = [
+    ["coleysia", "dillan"],
+    ["chris", "paige"],
+    ["ethan", "amber"],
+    ["jacy", "jj"],
+    ["kayla", "wes"],
+    ["shanley", "dre"],
+    ["brittany", "scali"],
+    ["ashleigh", "adam"],
+    ["simone", "joey"],
+    ["jessica", "ryan"]
+]
+correct = 5
+booth = ["chris", "paige"]
+booth_status = "yes"
+
+[week7]
+pairs = [
+    ["wes", "kayla"],
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["scali", "jacy"],
+    ["adam", "shanley"],
+    ["ethan", "amber"],
+    ["simone", "dre"],
+    ["ryan", "ashleigh"],
+    ["joey", "jessica"],
+    ["jj", "brittany"]
+]
+correct = 7
+booth = ["kayla", "ryan"]
+booth_status = "no"
+
+[week8]
+pairs = [
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["wes", "kayla"],
+    ["ethan", "amber"],
+    ["jessica", "ryan"],
+    ["simone", "dre"],
+    ["jacy", "jj"],
+    ["adam", "shanley"],
+    ["ashleigh", "scali"],
+    ["brittany", "joey"]
+]
+correct = 8
+booth = ["kayla", "wes"]
+booth_status = "yes"
+
+[week9]
+pairs = [
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["wes", "kayla"],
+    ["ethan", "amber"],
+    ["scali", "jacy"],
+    ["dre", "simone"],
+    ["ryan", "jessica"],
+    ["adam", "shanley"],
+    ["joey", "brittany"],
+    ["jj", "ashleigh"]
+]
+correct = 10
+booth = ["jj", "jacy"]
 booth_status = "no"
