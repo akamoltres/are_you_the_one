@@ -22,11 +22,13 @@ def check_matchup(men, women, pairs, correct_count, women_assigned):
     return (possibility_count == correct_count)
 
 def check_booth(men, women, booth, booth_status, women_assigned):
-    if booth_status == "yes":
-        return women_assigned[booth.woman_idx] == booth.man_idx
-    elif booth_status == "no":
-        return women_assigned[booth.woman_idx] != booth.man_idx
-    assert False
+    for i,b in enumerate(booth):
+        if booth_status[i] == "yes":
+            return women_assigned[b.woman_idx] == b.man_idx
+        elif booth_status[i] == "no":
+            return women_assigned[b.woman_idx] != b.man_idx
+        else:
+            assert False
 
 def check_week(week, constraints, women_assigned):
     week = f"week{week}"
@@ -107,7 +109,13 @@ def pairs_to_Pairs(constraints):
         week = f"week{w}"
 
         # convert the truth booth pairs
-        constraints[week]["booth"] = pair_to_Pair(constraints[week]["booth"], men_list, women_list)
+        booth_list_Pairs = list()
+        if not isinstance(constraints[week]["booth"][0], list):
+            constraints[week]["booth"] = [constraints[week]["booth"]]
+            constraints[week]["booth_status"] = [constraints[week]["booth_status"]]
+        for b in constraints[week]["booth"]:
+            booth_list_Pairs.append(pair_to_Pair(b, men_list, women_list))
+        constraints[week]["booth"] = booth_list_Pairs
 
         # convert the matchup ceremony pairs
         for idx, pair in enumerate(constraints[week]["pairs"]):

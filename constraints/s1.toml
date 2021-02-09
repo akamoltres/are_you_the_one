@@ -1,0 +1,181 @@
+
+weeks = 9
+
+men = [
+    "adam",
+    "chris",
+    "dillan",
+    "dre",
+    "ethan",
+    "jj",
+    "joey",
+    "ryan",
+    "scali",
+    "wes"
+]
+
+women = [
+    "amber",
+    "ashleigh",
+    "brittany",
+    "coleysia",
+    "jacy",
+    "jessica",
+    "kayla",
+    "paige",
+    "shanley",
+    "simone"
+]
+
+[week1]
+pairs = [
+    ["wes", "kayla"],
+    ["ethan", "shanley"],
+    ["adam", "brittany"],
+    ["dre", "jacy"],
+    ["jj", "simone"],
+    ["chris", "jessica"],
+    ["joey", "paige"],
+    ["scali", "ashleigh"],
+    ["ryan", "amber"],
+    ["dillan", "coleysia"]
+]
+correct = 2
+booth = ["chris", "shanley"]
+booth_status = "no"
+
+[week2]
+pairs = [
+    ["jacy", "jj"],
+    ["jessica", "dillan"],
+    ["paige", "chris"],
+    ["simone", "scali"],
+    ["shanley", "adam"],
+    ["coleysia", "wes"],
+    ["amber", "ethan"],
+    ["brittany", "joey"],
+    ["kayla", "ryan"],
+    ["ashleigh", "dre"]
+]
+correct = 4
+booth = ["ethan", "jessica"]
+booth_status = "no"
+
+[week3]
+pairs = [
+    ["dillan", "coleysia"],
+    ["jj", "jessica"],
+    ["ryan", "kayla"],
+    ["ethan", "amber"],
+    ["dre", "ashleigh"],
+    ["chris", "simone"],
+    ["adam", "brittany"],
+    ["scali", "paige"],
+    ["joey", "shanley"],
+    ["wes", "jacy"]
+]
+correct = 2
+booth = ["jj", "simone"]
+booth_status = "no"
+
+[week4]
+pairs = [
+    ["coleysia", "dillan"],
+    ["paige", "scali"],
+    ["jessica", "wes"],
+    ["simone", "dre"],
+    ["brittany", "ryan"],
+    ["kayla", "ethan"],
+    ["amber", "adam"],
+    ["ashleigh", "chris"],
+    ["shanley", "jj"],
+    ["jacy", "joey"]
+]
+correct = 2
+booth = ["dillan", "jessica"]
+booth_status = "no"
+
+[week5]
+pairs = [
+    ["ethan", "amber"],
+    ["joey", "jessica"],
+    ["wes", "kayla"],
+    ["jj", "jacy"],
+    ["scali", "simone"],
+    ["adam", "shanley"],
+    ["chris", "paige"],
+    ["dre", "brittany"],
+    ["ryan", "ashleigh"],
+    ["dillan", "coleysia"]
+]
+correct = 5
+booth = [["dre", "ashleigh"], ["dillan", "coleysia"]]
+booth_status = ["no", "yes"]
+
+[week6]
+pairs = [
+    ["coleysia", "dillan"],
+    ["chris", "paige"],
+    ["ethan", "amber"],
+    ["jacy", "jj"],
+    ["kayla", "wes"],
+    ["shanley", "dre"],
+    ["brittany", "scali"],
+    ["ashleigh", "adam"],
+    ["simone", "joey"],
+    ["jessica", "ryan"]
+]
+correct = 5
+booth = ["chris", "paige"]
+booth_status = "yes"
+
+[week7]
+pairs = [
+    ["wes", "kayla"],
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["scali", "jacy"],
+    ["adam", "shanley"],
+    ["ethan", "amber"],
+    ["simone", "dre"],
+    ["ryan", "ashleigh"],
+    ["joey", "jessica"],
+    ["jj", "brittany"]
+]
+correct = 7
+booth = ["kayla", "ryan"]
+booth_status = "no"
+
+[week8]
+pairs = [
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["wes", "kayla"],
+    ["ethan", "amber"],
+    ["jessica", "ryan"],
+    ["simone", "dre"],
+    ["jacy", "jj"],
+    ["adam", "shanley"],
+    ["ashleigh", "scali"],
+    ["brittany", "joey"]
+]
+correct = 8
+booth = ["kayla", "wes"]
+booth_status = "yes"
+
+[week9]
+pairs = [
+    ["dillan", "coleysia"],
+    ["chris", "paige"],
+    ["wes", "kayla"],
+    ["ethan", "amber"],
+    ["scali", "jacy"],
+    ["dre", "simone"],
+    ["ryan", "jessica"],
+    ["adam", "shanley"],
+    ["joey", "brittany"],
+    ["jj", "ashleigh"]
+]
+correct = 10
+booth = ["jj", "jacy"]
+booth_status = "no"

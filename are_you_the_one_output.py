@@ -52,20 +52,23 @@ def write_week_to_xlsx(ws, start_cell, constraints, week, phase, probability_tab
     matchup_table = get_blank_matchups(probability_table)
 
     # add the truth booth to the week's matchup table
-    pair = constraints[f"week{week}"]["booth"]
-    done = False
-    for idx_r, i in enumerate(probability_table):
-        for idx_c, j in enumerate(i):
-            if [probability_table[idx_r][0], probability_table[0][idx_c]] == pair or \
-               [probability_table[0][idx_c], probability_table[idx_r][0]] == pair:
-                done = True
-                if j == "X":
-                    matchup_table[idx_r][idx_c] = "X"
-                elif j == "MATCH":
-                    matchup_table[idx_r][idx_c] = "MATCH"
-                else:
-                    assert False
-    assert done
+    pairs = constraints[f"week{week}"]["booth"]
+    if not isinstance(pairs[0], list):
+        pairs = [pairs]
+    for p in pairs:
+        done = False
+        for idx_r, i in enumerate(probability_table):
+            for idx_c, j in enumerate(i):
+                if [probability_table[idx_r][0], probability_table[0][idx_c]] == p or \
+                   [probability_table[0][idx_c], probability_table[idx_r][0]] == p:
+                    done = True
+                    if j == "X":
+                        matchup_table[idx_r][idx_c] = "X"
+                    elif j == "MATCH":
+                        matchup_table[idx_r][idx_c] = "MATCH"
+                    else:
+                        assert False
+        assert done
 
     # add the matchup ceremony to the week's matchup table
     if phase == "b":
